@@ -27,7 +27,7 @@ namespace SpartaDungeon
 				ItemList[i].PrintItem();
 			}
 			Console.WriteLine();
-			SceneUtility.SetCorsor();
+			SceneUtility.SetCursor();
 		}
 
 		public static void EquipItem(int count)

@@ -15,6 +15,12 @@ namespace SpartaDungeon
 		protected bool isEquiped = false;
 		protected ItemOption itemOption = ItemOption.None;
 		protected float itemEffect = 0f;
+		protected int itemValue = 0;
+
+		public string Name { get { return name; } }
+		public string Description { get { return description; } }
+		public string Effect { get { return effect; } }
+		public int ItemValue { get { return itemValue; } }
 
 		public void PrintItem()
 		{
@@ -24,7 +30,7 @@ namespace SpartaDungeon
 			Console.ResetColor();
 			Console.Write($"{name, -10}\t|{effect,-6}|{description,-10}");
 			Console.WriteLine();
-			SceneUtility.SetCorsor();
+			SceneUtility.SetCursor();
 		}
 
 		protected abstract void InitEquipValue();

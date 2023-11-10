@@ -10,30 +10,25 @@ namespace SpartaDungeon.Scenes
 	{
 		public override void EnterScene()
 		{
-			SceneUtility.MakeBorder();
 			Player.WriteMyStatus();
-		}
-
-		public override State ExitScene()
-		{
-			return nextState;
-		}
-
-		public override void ReceiveInput()
-		{
 			while (true)
 			{
 				Console.WriteLine("뒤로 가기 : 0");
-				SceneUtility.SetCorsor();
+				SceneUtility.SetCursor();
 				Console.Write(">> ");
 				string? input = Console.ReadLine();
-				SceneUtility.SetCorsor();
+				SceneUtility.SetCursor();
 				if (input == "0")
 				{
 					nextState = beforeState;
 					break;
 				}
 			}
+		}
+
+		public override State ExitScene()
+		{
+			return nextState;
 		}
 	}
 }

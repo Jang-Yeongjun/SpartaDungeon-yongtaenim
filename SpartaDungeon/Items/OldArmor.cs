@@ -13,6 +13,7 @@ namespace SpartaDungeon
 			name = "낡은 갑옷";
 			description = "모습은 좀 그렇지만 쓸만한 갑옷입니다.";
 			effect = "방어력 +3";
+			itemValue = 500;
 			InitEquipValue();
 		}
 		protected override void InitEquipValue()

@@ -27,6 +27,7 @@ namespace SpartaDungeon
 		static float equipAttack = 0f;
 		static float equipDefense = 0f;
 		static float equipHealth = 0f;
+		static float currentHealth = 0f;
 
 
 		public static void InitCharacter(string myName)
@@ -37,68 +38,63 @@ namespace SpartaDungeon
 			baseAttack = 10;
 			baseDefense = 5;
 			baseHealth = 100;
+			currentHealth = 50;
 			gold = 0;
 		}
 
 		public static void WriteMyStatus()
 		{
-			Console.ForegroundColor = ConsoleColor.Yellow;
-			Console.WriteLine("[상태창]");
-			Console.ResetColor();
+			SceneUtility.WriteTitle("상태창");
 
-			SceneUtility.SetCorsor();
 			Console.WriteLine("Lv.\t: {0}", level);
-			SceneUtility.SetCorsor();
+			SceneUtility.SetCursor();
 			Console.WriteLine("이름\t: {0}", name);
-			SceneUtility.SetCorsor();
+			SceneUtility.SetCursor();
 			Console.WriteLine("직업\t: {0}", job);
-			SceneUtility.SetCorsor();
+			SceneUtility.SetCursor();
 
 			// 현재 음수에 대한 입력은 고려 안함
-			Console.Write("공격력\t: {0}", baseAttack + equipAttack);
+			Console.Write($"공격력\t: {baseAttack + equipAttack, -4}");
 			if(equipAttack != 0)
 			{
-				Console.WriteLine(" (+{0})", equipAttack);
-				SceneUtility.SetCorsor();
+				Console.WriteLine("(+{0})", equipAttack);
+				SceneUtility.SetCursor();
 			}
 			else
 			{
 				Console.WriteLine();
-				SceneUtility.SetCorsor();
+				SceneUtility.SetCursor();
 			}
 				
 
-			Console.Write("방어력\t: {0}", baseDefense + equipDefense);
+			Console.Write($"방어력\t: {baseDefense + equipDefense, -4}");
 			if(equipDefense != 0)
 			{
-				Console.WriteLine(" (+{0})", equipDefense);
-				SceneUtility.SetCorsor();
+				Console.WriteLine("(+{0})", equipDefense);
+				SceneUtility.SetCursor();
 			}	
 			else
 			{
 				Console.WriteLine();
-				SceneUtility.SetCorsor();
+				SceneUtility.SetCursor();
 			}
-			Console.Write("체력\t: {0}", baseHealth + equipHealth);
-			if (equipHealth != 0)
-			{
-				Console.WriteLine(" (+{0})", equipHealth);
-				SceneUtility.SetCorsor();
-			}
-			else
-			{
-				Console.WriteLine();
-				SceneUtility.SetCorsor();
-			}
+
+			Console.WriteLine($"체력\t: {currentHealth} / {baseHealth+equipHealth}");
+			SceneUtility.SetCursor();
+
 			Console.WriteLine("소지금\t: {0} Gold", gold);
-			SceneUtility.SetCorsor();
+			SceneUtility.SetCursor();
 			Console.WriteLine();
-			SceneUtility.SetCorsor();
+			SceneUtility.SetCursor();
 		}
 
-		public static void GetMoney(int money)
+		public static void SetMoney(int money)
 		{
 			gold += money;
+		}
+		public static int GetMoney()
+		{
+			return gold;
 		}
 
 		// 장착 해제할 때는 value를 -로!
@@ -124,9 +120,21 @@ namespace SpartaDungeon
 				default:
 					{
 						Console.WriteLine("잘못된 접근입니다.");
-						SceneUtility.SetCorsor();
+						SceneUtility.SetCursor();
 						break;
 					}
+			}
+		}
+
+		public static void Recovery(float value)
+		{
+			if(value + currentHealth > baseHealth + equipHealth)
+			{
+				currentHealth = baseHealth + equipHealth;
+			}
+			else
+			{
+				currentHealth += value;
 			}
 		}
 	}

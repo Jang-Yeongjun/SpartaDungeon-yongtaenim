@@ -14,6 +14,7 @@ namespace SpartaDungeon
 			name = "녹슨 검";
 			description = "어딘가에 버려져 있어도 이상하지 않은 검입니다.";
 			effect = "공격력 +3";
+			itemValue = 400;
 			InitEquipValue();
 		}
 		protected override void InitEquipValue()

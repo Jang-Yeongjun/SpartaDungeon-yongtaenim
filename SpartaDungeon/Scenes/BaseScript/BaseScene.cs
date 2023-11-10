@@ -11,7 +11,6 @@ namespace SpartaDungeon
 		public State beforeState = State.None;
 		protected State nextState = State.None;
 		public abstract void EnterScene();
-		public abstract void ReceiveInput();
 		public abstract State ExitScene();
 		public void ClearKey()
 		{
