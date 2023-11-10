@@ -17,6 +17,7 @@ namespace SpartaDungeon
 		}
 		public static void RemoveItem(int index)
 		{
+			ItemList[index].DeleteEffect();
 			ItemList.RemoveAt(index);
 		}
 		public static void WriteItemList(bool mode)

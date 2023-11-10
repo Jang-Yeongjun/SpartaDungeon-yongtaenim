@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpartaDungeon.Items.BaseScript
+namespace SpartaDungeon
 {
-	internal abstract class UseableItem : BaseItem
+	internal class Usables
 	{
 	}
 }

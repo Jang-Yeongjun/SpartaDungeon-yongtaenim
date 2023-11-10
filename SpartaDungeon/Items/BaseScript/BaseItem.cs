@@ -7,6 +7,13 @@ using System.Threading.Tasks;
 
 namespace SpartaDungeon
 {
+	enum ItemOption
+	{
+		None,
+		Attack,
+		Defense,
+		Health
+	}
 	internal abstract class BaseItem
 	{
 		protected string name = "?";
@@ -22,6 +29,7 @@ namespace SpartaDungeon
 		public string Effect { get { return effect; } }
 		public int ItemValue { get { return itemValue; } }
 
+		public abstract BaseItem DeepCopy();
 		public void PrintItem()
 		{
 			Console.ForegroundColor = ConsoleColor.Green;
@@ -33,25 +41,7 @@ namespace SpartaDungeon
 			SceneUtility.SetCursor();
 		}
 
-		protected abstract void InitEquipValue();
-		private void EquipItem()
-		{
-			isEquiped = true;
-			Player.AddStatus(itemOption, itemEffect);
-		}
-		private void DetachItem()
-		{
-			isEquiped = false;
-			Player.AddStatus(itemOption, itemEffect * -1);
-		}
-
-		public void ChangeEquipStatus()
-		{
-			if (isEquiped)
-				DetachItem();
-			else
-				EquipItem();
-		}
-
+		public abstract void ChangeEquipStatus();
+		public abstract void DeleteEffect();
 	}
 }

@@ -7,13 +7,6 @@ using System.Threading.Tasks;
 
 namespace SpartaDungeon
 {
-	enum ItemOption
-	{
-		None,
-		Attack,
-		Defense,
-		Health
-	}
 	// 추후에 :: 데이터를 받아서 작성 -> 더 되면 데이터를 로컬에 저장
 	internal static class Player
 	{
@@ -28,6 +21,7 @@ namespace SpartaDungeon
 		static float equipDefense = 0f;
 		static float equipHealth = 0f;
 		static float currentHealth = 0f;
+		static Dictionary<EquipType, bool> equipState = new Dictionary<EquipType, bool>();
 
 
 		public static void InitCharacter(string myName)
@@ -40,6 +34,10 @@ namespace SpartaDungeon
 			baseHealth = 100;
 			currentHealth = 50;
 			gold = 0;
+			equipState.Add(EquipType.None, true);
+			equipState.Add(EquipType.Ring, false);
+			equipState.Add(EquipType.Weapon, false);
+			equipState.Add(EquipType.Armor, false);
 		}
 
 		public static void WriteMyStatus()
@@ -136,6 +134,18 @@ namespace SpartaDungeon
 			{
 				currentHealth += value;
 			}
+		}
+
+		public static bool IsEquiped(EquipType equipType)
+		{
+			if (equipState[equipType])
+				return true;
+			return false;
+		}
+
+		public static void ChangeEquipState(EquipType equipType , bool state)
+		{
+			equipState[equipType] = state;
 		}
 	}
 }

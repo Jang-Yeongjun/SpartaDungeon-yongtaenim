@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace SpartaDungeon
 {
-	internal class RustySword : BaseItem
+	internal class RustySword : EquipableItem
 	{
 		public RustySword()
 		{
@@ -15,12 +15,18 @@ namespace SpartaDungeon
 			description = "어딘가에 버려져 있어도 이상하지 않은 검입니다.";
 			effect = "공격력 +3";
 			itemValue = 400;
+			equipType = EquipType.Weapon;
 			InitEquipValue();
 		}
 		protected override void InitEquipValue()
 		{
 			itemOption = ItemOption.Attack;
 			itemEffect = 3f;
+		}
+
+		public override BaseItem DeepCopy()
+		{
+			return new RustySword();
 		}
 	}
 }

@@ -125,6 +125,7 @@ namespace SpartaDungeon
 			while (true)
 			{
 				SceneUtility.WriteTitle("장비 구매");
+				
 				blackSmith.SaleScene();
 
 				SceneUtility.SetCursor();
@@ -323,7 +324,7 @@ namespace SpartaDungeon
 			int Value = SaleList[num - 1].ItemValue;
 			if( Player.GetMoney() >= Value)
 			{
-				BaseItem item = SaleList[num - 1];
+				BaseItem item = SaleList[num - 1].DeepCopy();
 				Inventory.AddItem(item);
 				Player.SetMoney(SaleList[num - 1].ItemValue * -1);
 			}
