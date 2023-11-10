@@ -13,6 +13,7 @@ namespace SpartaDungeon
 	/// </summary>
 	internal class ShopScene : BaseScene
 	{
+		BlackSmith blackSmith = new BlackSmith();
 		public override void EnterScene()
 		{
 			while (true)
@@ -124,8 +125,6 @@ namespace SpartaDungeon
 			while (true)
 			{
 				SceneUtility.WriteTitle("장비 구매");
-
-				BlackSmith blackSmith = new BlackSmith();
 				blackSmith.SaleScene();
 
 				SceneUtility.SetCursor();
@@ -156,52 +155,35 @@ namespace SpartaDungeon
 		}
 		private void BlackSmithSellScene()
 		{
+			BlackSmithSellInit();
 			while (true)
 			{
 				SceneUtility.WriteTitle("장비 판매");
-				Console.WriteLine("당신이 무기를 팔겠다고 하자, 노인은 심드렁한 표정으로 입을 열었습니다.");
+
+				Inventory.WriteSellList();
+
 				SceneUtility.SetCursor();
-				Console.WriteLine("\"무기와 방어구는 받겠네. 하지만 값은 기대하지 말게.\"");
+				Console.WriteLine("0: 돌아가기");
 				SceneUtility.SetCursor();
-				Console.Write("곧 노인은 당신이 꺼낸 장비들을 평가합니다");
-				Thread.Sleep(400);
-				Console.Write('.');
-				Thread.Sleep(400);
-				Console.Write('.');
-				Thread.Sleep(400);
-				Console.Write('.');
-				Thread.Sleep(400);
-				Console.Write('.');
-				Thread.Sleep(400);
-
-				SceneUtility.WriteTitle("장비 판매");
-
-				// 내가 가지고 있는 장비를 출력하고, 판매할 수 있는 상태로 만들기
-
-				Console.WriteLine("어떻게 하시겠습니까?\n");
+				Console.WriteLine($"현재 소지금 : {Player.GetMoney()}");
 				SceneUtility.SetCursor();
-
+				Console.WriteLine("장비를 판매하시려면 목록에 해당하는 숫자를 입력해주세요.");
+				SceneUtility.SetCursor();
 				Console.Write(">> ");
 				string? input = Console.ReadLine();
 				int num;
 				if (int.TryParse(input, out num))
 				{
-					if (num == 1)
-					{
-						// 장비 구매씬으로
-						EnterScene();
-						break;
-					}
-					else if (num == 2)
-					{
-						// 장비 판매씬으로
-						EnterScene();
-						break;
-					}
-					else if (num == 0)
+					// 0을 제외한 숫자가 "유효할 시" 판매 리스트의 Count를 받아서 연결
+					if (num == 0)
 					{
 						BlackSmithMainScene();
 						break;
+					}
+					else if (num <= Inventory.GetListCount())
+					{
+						blackSmith.BuyItem(num);
+						continue;
 					}
 				}
 			}
@@ -299,6 +281,24 @@ namespace SpartaDungeon
 			Console.Write('.');
 			Thread.Sleep(400);
 		}
+		private void BlackSmithSellInit()
+		{
+			SceneUtility.WriteTitle("장비 판매");
+			Console.WriteLine("당신이 무기를 팔겠다고 하자, 노인은 심드렁한 표정으로 입을 열었습니다.");
+			SceneUtility.SetCursor();
+			Console.WriteLine("\"무기와 방어구는 받겠네. 하지만 값은 기대하지 말게.\"");
+			SceneUtility.SetCursor();
+			Console.Write("곧 노인은 당신이 꺼낸 장비들을 평가합니다");
+			Thread.Sleep(400);
+			Console.Write('.');
+			Thread.Sleep(400);
+			Console.Write('.');
+			Thread.Sleep(400);
+			Console.Write('.');
+			Thread.Sleep(400);
+			Console.Write('.');
+			Thread.Sleep(400);
+		}
 
 	}
 
@@ -333,6 +333,12 @@ namespace SpartaDungeon
 				Console.Write("비용이 부족합니다.");
 				Thread.Sleep(1000);
 			}
+		}
+		public void BuyItem(int num)
+		{
+			int Value = Inventory.GetItemValue(num-1);
+			Inventory.RemoveItem(num-1);
+			Player.SetMoney(Value/2);
 		}
 
 		public int GetListCount()

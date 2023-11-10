@@ -15,6 +15,10 @@ namespace SpartaDungeon
 		{
 			ItemList.Add(item);
 		}
+		public static void RemoveItem(int index)
+		{
+			ItemList.RemoveAt(index);
+		}
 		public static void WriteItemList(bool mode)
 		{
 			// 일반 인벤토리는 false, 장착 모드는 true
@@ -38,6 +42,15 @@ namespace SpartaDungeon
 		public static int GetListCount()
 		{
 			return ItemList.Count;
+		}
+
+		public static void WriteSellList()
+		{
+			SceneUtility.MakeTradeList(ItemList, 0.5f) ;
+		}
+		public static int GetItemValue(int index)
+		{
+			return ItemList[index].ItemValue;
 		}
 	}
 }

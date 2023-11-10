@@ -64,9 +64,8 @@ namespace SpartaDungeon
 			SetCursor();
 		}
 
-		public static void MakeTradeList(List<BaseItem> list)
+		public static void MakeTradeList(List<BaseItem> list, float Valuebias = 1)
 		{
-			// 20~100을 쓰자
 			Console.SetCursorPosition(20, 2);
 			for(int i=0; i <50; i++)
 			{
@@ -83,7 +82,7 @@ namespace SpartaDungeon
 				Console.SetCursorPosition(69, CurrentY);
 				Console.Write('■');
 				Console.SetCursorPosition(22,CurrentY);
-				Console.Write($"{i+1, -2}. {list[i].Name, -8}\t |{list[i].Effect, -6}|{list[i].ItemValue, 10} Gold");
+				Console.Write($"{i+1, -2}. {list[i].Name, -8}\t |{list[i].Effect, -6}|{list[i].ItemValue * Valuebias, 10} Gold");
 				Console.WriteLine();
 				SetCursor();
 			}
