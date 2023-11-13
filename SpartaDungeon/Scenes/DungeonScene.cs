@@ -181,7 +181,7 @@ namespace SpartaDungeon
 					break;
 			}
 
-			SceneUtility.WriteTitle("쉬운 던전");
+			SceneUtility.WriteTitle(title);
 
 			Console.WriteLine($"당신은 {title}에 입장했습니다.");
 			SceneUtility.SetCursor();
