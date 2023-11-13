@@ -22,7 +22,7 @@ namespace SpartaDungeon
 
 				Console.WriteLine("스파르타 마을의 상점가입니다.");
 				SceneUtility.SetCursor();
-				Console.WriteLine("바로 앞 굴뚝에서 연기가 나오는 건물은 연금술사의 물약 상점이, 맞은편에는 대장간이 보입니다.");
+				Console.WriteLine("바로 앞 굴뚝에서 연기가 나오는 건물은 대장간같군요.");
 				SceneUtility.SetCursor();
 				Console.WriteLine("상점가에서 조금 떨어져 있는 곳에는 여관이 보입니다.");
 				SceneUtility.SetCursor();
@@ -32,8 +32,6 @@ namespace SpartaDungeon
 				Console.WriteLine("1: 여관으로");
 				SceneUtility.SetCursor();
 				Console.WriteLine("2: 대장간으로");
-				SceneUtility.SetCursor();
-				Console.WriteLine("3: 물약 상점으로");
 				SceneUtility.SetCursor();
 				Console.WriteLine("0: 뒤로 가기");
 				SceneUtility.SetCursor();
@@ -51,10 +49,6 @@ namespace SpartaDungeon
 					else if (num == 2)
 					{
 						BlackSmithMainScene();
-						break;
-					}
-					else if (num == 3)
-					{
 						break;
 					}
 					else if (num == 0)
@@ -125,7 +119,7 @@ namespace SpartaDungeon
 			while (true)
 			{
 				SceneUtility.WriteTitle("장비 구매");
-				
+
 				blackSmith.SaleScene();
 
 				SceneUtility.SetCursor();
@@ -146,7 +140,7 @@ namespace SpartaDungeon
 						BlackSmithMainScene();
 						break;
 					}
-					else if(num <= blackSmith.GetListCount())
+					else if (num <= blackSmith.GetListCount())
 					{
 						blackSmith.SellItem(num);
 						continue;
@@ -217,7 +211,7 @@ namespace SpartaDungeon
 				{
 					if (num == 1)
 					{
-						if(Player.GetMoney() >= 200)
+						if (Player.GetMoney() >= 200)
 						{
 							Player.SetMoney(-200);
 							RestScene();
@@ -264,6 +258,8 @@ namespace SpartaDungeon
 			EnterScene();
 		}
 
+
+
 		private void BlackSmithBuyInit()
 		{
 			SceneUtility.WriteTitle("장비 구매");
@@ -309,8 +305,10 @@ namespace SpartaDungeon
 
 		public BlackSmith()
 		{
-			SaleList.Add(new OldArmor());
-			SaleList.Add(new RustySword());
+			SaleList.Add(new SteelArmor());
+			SaleList.Add(new SteelSword());
+			SaleList.Add(new SpartaArmor());
+			SaleList.Add(new SpartaSword());
 		}
 
 		public void SaleScene()

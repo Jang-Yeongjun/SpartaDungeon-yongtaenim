@@ -82,7 +82,7 @@ namespace SpartaDungeon
 				Console.SetCursorPosition(69, CurrentY);
 				Console.Write('■');
 				Console.SetCursorPosition(22,CurrentY);
-				Console.Write($"{i+1, -2}. {list[i].Name, -8}\t |{list[i].Effect, -6}|{list[i].ItemValue * Valuebias, 10} Gold");
+				Console.Write($"{i+1, -2}. {list[i].Name, -8}\t |{list[i].Effect}|{list[i].ItemValue * Valuebias, 10} Gold");
 				Console.WriteLine();
 				SetCursor();
 			}

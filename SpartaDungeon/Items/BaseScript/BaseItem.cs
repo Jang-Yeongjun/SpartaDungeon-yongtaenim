@@ -7,12 +7,20 @@ using System.Threading.Tasks;
 
 namespace SpartaDungeon
 {
-	enum ItemOption
+	enum Status
 	{
 		None,
 		Attack,
 		Defense,
 		Health
+	}
+	public enum ItemType
+	{
+		None,
+		Weapon,
+		Armor,
+		Ring,
+		Useable
 	}
 	internal abstract class BaseItem
 	{
@@ -20,9 +28,10 @@ namespace SpartaDungeon
 		protected string description = "?";
 		protected string effect = "?";
 		protected bool isEquiped = false;
-		protected ItemOption itemOption = ItemOption.None;
+		protected Status Status = Status.None;
 		protected float itemEffect = 0f;
 		protected int itemValue = 0;
+		protected ItemType itemType;
 
 		public string Name { get { return name; } }
 		public string Description { get { return description; } }
@@ -36,7 +45,7 @@ namespace SpartaDungeon
 			if (isEquiped == true)
 				Console.Write("[E]");
 			Console.ResetColor();
-			Console.Write($"{name, -10}\t|{effect,-6}|{description,-10}");
+			Console.Write($"{name, -8}\t|{effect,-6}|{description,-10}");
 			Console.WriteLine();
 			SceneUtility.SetCursor();
 		}

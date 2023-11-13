@@ -6,32 +6,23 @@ using System.Threading.Tasks;
 
 namespace SpartaDungeon
 {
-	public enum EquipType
-	{
-		None,
-		Weapon,
-		Armor,
-		Ring
-	}
+
 	internal abstract class EquipableItem : BaseItem
 	{
-		protected EquipType equipType;
-
-		protected abstract void InitEquipValue();
 		private void EquipItem()
 		{
-			if (!Player.IsEquiped(equipType))
+			if (!Player.IsEquiped(itemType))
 			{
 				isEquiped = true;
-				Player.AddStatus(itemOption, itemEffect);
-				Player.ChangeEquipState(equipType, true);
+				Player.AddStatus(Status, itemEffect);
+				Player.ChangeEquipState(itemType, true);
 			}
 		}
 		private void DetachItem()
 		{
 			isEquiped = false;
-			Player.AddStatus(itemOption, itemEffect * -1);
-			Player.ChangeEquipState(equipType, false);
+			Player.AddStatus(Status, itemEffect * -1);
+			Player.ChangeEquipState(itemType, false);
 		}
 
 		public override void ChangeEquipStatus()
@@ -47,8 +38,8 @@ namespace SpartaDungeon
 			if(isEquiped)
 			{
 				isEquiped = false;
-				Player.ChangeEquipState(equipType, false);
-				Player.AddStatus(itemOption, itemEffect * -1);
+				Player.ChangeEquipState(itemType, false);
+				Player.AddStatus(Status, itemEffect * -1);
 			}
 		}
 	}

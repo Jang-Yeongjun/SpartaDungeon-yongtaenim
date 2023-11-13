@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -7,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace SpartaDungeon
 {
-	// 추후에 :: 데이터를 받아서 작성 -> 더 되면 데이터를 로컬에 저장
 	internal static class Player
 	{
 		static int level;
@@ -21,7 +21,7 @@ namespace SpartaDungeon
 		static float equipDefense = 0f;
 		static float equipHealth = 0f;
 		static float currentHealth = 0f;
-		static Dictionary<EquipType, bool> equipState = new Dictionary<EquipType, bool>();
+		static Dictionary<ItemType, bool> equipState = new Dictionary<ItemType, bool>();
 
 
 		public static void InitCharacter(string myName)
@@ -32,12 +32,12 @@ namespace SpartaDungeon
 			baseAttack = 10;
 			baseDefense = 5;
 			baseHealth = 100;
-			currentHealth = 50;
+			currentHealth = baseHealth;
 			gold = 0;
-			equipState.Add(EquipType.None, true);
-			equipState.Add(EquipType.Ring, false);
-			equipState.Add(EquipType.Weapon, false);
-			equipState.Add(EquipType.Armor, false);
+			equipState.Add(ItemType.None, true);
+			equipState.Add(ItemType.Ring, false);
+			equipState.Add(ItemType.Weapon, false);
+			equipState.Add(ItemType.Armor, false);
 		}
 
 		public static void WriteMyStatus()
@@ -96,21 +96,21 @@ namespace SpartaDungeon
 		}
 
 		// 장착 해제할 때는 value를 -로!
-		public static void AddStatus(ItemOption option, float value)
+		public static void AddStatus(Status status, float value)
 		{
-			switch(option)
+			switch(status)
 			{
-				case ItemOption.Attack:
+				case Status.Attack:
 					{
 						equipAttack += value;
 						break;
 					}
-				case ItemOption.Defense:
+				case Status.Defense:
 					{
 						equipDefense += value;
 						break;
 					}
-				case ItemOption.Health:
+				case Status.Health:
 					{
 						equipHealth += value;
 						break;
@@ -136,16 +136,65 @@ namespace SpartaDungeon
 			}
 		}
 
-		public static bool IsEquiped(EquipType equipType)
+		public static bool IsEquiped(ItemType itemType)
 		{
-			if (equipState[equipType])
+			if (equipState[itemType])
 				return true;
 			return false;
 		}
 
-		public static void ChangeEquipState(EquipType equipType , bool state)
+		public static void ChangeEquipState(ItemType itemType , bool state)
 		{
-			equipState[equipType] = state;
+			equipState[itemType] = state;
+		}
+
+		public static void UseItem(Status Status, float value)
+		{
+			switch (Status)
+			{
+				case Status.Attack:
+					{
+						baseAttack += value;
+						break;
+					}
+				case Status.Defense:
+					{
+						baseDefense += value;
+						break;
+					}
+				case Status.Health:
+					{
+						if (value + currentHealth > baseHealth + equipHealth)
+						{
+							currentHealth = baseHealth + equipHealth;
+						}
+						else
+						{
+							currentHealth += value;
+						}
+						break;
+					}
+				default:
+					{
+						Console.WriteLine("잘못된 접근입니다.");
+						SceneUtility.SetCursor();
+						break;
+					}
+			}
+		}
+
+		public static float GetStatus(Status status)
+		{
+			switch (status)
+			{
+				case Status.Attack:
+					return baseAttack + equipAttack;
+				case Status.Defense:
+					return baseDefense + equipDefense;
+				case Status.Health:
+					return currentHealth;
+			}
+			return 0f;
 		}
 	}
 }

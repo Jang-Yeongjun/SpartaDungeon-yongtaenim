@@ -53,6 +53,7 @@ namespace SpartaDungeon
 				}
 				else if (input == "4")
 				{
+					nextState = State.Dungeon;
 					break;
 				}
 				else if (input == "Q")

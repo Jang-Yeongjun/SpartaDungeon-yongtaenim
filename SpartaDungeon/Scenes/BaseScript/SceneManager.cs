@@ -17,7 +17,8 @@ namespace SpartaDungeon
 		Town,
 		Status,
 		Inventory,
-		Shop
+		Shop,
+		Dungeon
 	}
 
 	internal class SceneManager
@@ -42,7 +43,7 @@ namespace SpartaDungeon
 			Scenes.Add(State.Status, new StatusScene() );
 			Scenes.Add(State.Inventory, new InventoryScene());
 			Scenes.Add(State.Shop, new ShopScene() );
-			
+			Scenes.Add(State.Dungeon, new DungeonScene());
 		}
 
 		public State Update()
